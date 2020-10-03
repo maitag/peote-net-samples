@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="PeoteChat" package="peote.chat" version="0.7.1" company="Sylvio Sell - maitag" />
+	<app main="PeoteChat" path="Export" file="PeoteChat" />
+	
+	<window allow-high-dpi="true"/>
+	
+	<source path="Source" />
+	
+	<haxelib name="openfl" />
+	
+	<haxelib name="peote-socket" />
+	<haxelib name="peote-net" />
+	
+	<!--<haxedef name="dom" />-->
+	
+	
+	<haxeflag name="-dce" value="full" />
+	<!--<haxedef name="no-traces" />
+	-->
+
+	<assets path="Assets" rename="assets" exclude="*.svg" />
+	<icon path="Assets/openfl.svg" />
+</project>
