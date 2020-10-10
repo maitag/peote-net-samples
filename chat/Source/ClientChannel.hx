@@ -1,5 +1,10 @@
 package;
 
+/**
+ * ...
+ * @author Sylvio Sell
+ */
+
 import haxe.Timer;
 import haxe.io.Bytes;
 import openfl.display.Sprite;
@@ -9,11 +14,6 @@ import ui.OutputText;
 import peote.net.PeoteClient;
 import peote.io.PeoteBytesOutput;
 import peote.io.PeoteBytesInput;
-
-/**
- * ...
- * @author Sylvio Sell
- */
 
 class ClientChannel extends Sprite implements I_Channel
 {

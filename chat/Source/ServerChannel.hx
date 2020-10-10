@@ -1,5 +1,10 @@
 package;
 
+/**
+ * ...
+ * @author Sylvio Sell
+ */
+
 import haxe.ds.IntMap;
 import haxe.Timer;
 import haxe.io.Bytes;
@@ -10,12 +15,6 @@ import ui.OutputText;
 import peote.net.PeoteServer;
 import peote.io.PeoteBytesOutput;
 import peote.io.PeoteBytesInput;
-
-/**
- * ...
- * @author Sylvio Sell
- */
-
 
 class ServerChannel extends Sprite implements I_Channel
 {

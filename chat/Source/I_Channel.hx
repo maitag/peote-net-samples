@@ -1,6 +1,4 @@
 package;
-import flash.display.Sprite;
-import haxe.io.StringInput;
 
 /**
  * @author Sylvio Sell
