@@ -9,7 +9,6 @@ import peote.net.Reason;
 
 import peote.io.PeoteBytesOutput;
 import peote.io.PeoteBytesInput;
-import peote.bridge.PeoteSocketBridge;
 
 import ui.OutputText;
 
@@ -27,22 +26,6 @@ class PeoteTest extends Sprite {
 		logClient = new OutputText(390, 5, 380, 550);
 		addChild(logClient);
 		
-		#if ((!server) && (!client))
-		openSocket();
-		#else
-		// Fallback for swf-bridge or websockets
-		// only relevant for js or flash targets
-		// (cpp will ignore this and opens directly tcp socket immediatly)
-		PeoteSocketBridge.load( {
-			onload: openSocket,
-			preferWebsockets: true,
-			onfail: function() { logServer.log("Browser doesn't support flash- or websockets" ); }
-		});
-		#end
-	}
-	
-	public function openSocket():Void
-	{
 		#if (server || (!client))
 		var peoteServer = new PeoteServer({
 			
