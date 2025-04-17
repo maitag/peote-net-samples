@@ -29,10 +29,13 @@ class Server extends lime.app.Application
 			onUserConnect: function(server:PeoteServer, userNr:Int) {
 				trace('SERVER -> onUserConnect: jointNr:${server.jointNr}, userNr:$userNr');
 
-				peoteServer.send(userNr, Bytes.ofString("hello"));
+				peoteServer.send(userNr, Bytes.ofString("PONG")); // initial pong
 
-				// TODO: send to all connected users out of userNr itself
-				// peoteServer.broadcast( Bytes.ofString('userNr:$userNr connected to server'), userNr);
+				// send to all connected users
+				peoteServer.broadcast( Bytes.ofString('NEW USER CONNECTED'));
+
+				// send to all connected users out of userNr itself
+				peoteServer.broadcast( Bytes.ofString('userNr:$userNr connected to server'), userNr);
 			},
 			
 			onData: function(server:PeoteServer, userNr:Int, data:Bytes) {

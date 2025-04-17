@@ -29,9 +29,10 @@ class Client extends lime.app.Application
 			onData: function(client:PeoteClient, data:Bytes) {
 				trace('CLIENT -> onData: jointNr:${client.jointNr}, data:${data}');
 
-				Timer.delay(()-> {
-					peoteClient.send( Bytes.ofString("PING") );
-				}, 1000);		
+				if (data.toString() == "PONG")
+					Timer.delay(()-> {
+						peoteClient.send( Bytes.ofString("PING") );
+					}, 1000);		
 			},
 			
 			onDisconnect: function(client:PeoteClient, reason:Int) {
