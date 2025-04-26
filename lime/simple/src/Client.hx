@@ -39,14 +39,15 @@ class Client extends lime.app.Application
 				trace('CLIENT -> onDisconnect: jointNr=${client.jointNr}');
 			},
 			
-			onError: function(client:PeoteClient, reason:Int) {
+			onError: function(client:PeoteClient, reason:Reason) {
 				switch(reason) {
-					case Reason.DISCONNECT:trace("CLIENT -> Can't connect to peote-server.");
-					case Reason.CLOSE:     trace("CLIENT -> Connection to peote-server is closed.");
-					case Reason.ID:        trace("CLIENT -> No channel with this ID to enter.");
-					case Reason.MAX:       trace("CLIENT -> Entered to much channels on this server at the same time (max is 128)");
-					case Reason.FULL:      trace("CLIENT -> Channel is full (max of 256 users already connected).");
-					case Reason.MALICIOUS: trace("CLIENT -> Malicious data.");
+					case DISCONNECT:trace("CLIENT -> Can't connect to peote-server.");
+					case CLOSE:     trace("CLIENT -> Connection to peote-server is closed.");
+					case ID:        trace("CLIENT -> No channel with this ID to enter.");
+					case MAX:       trace("CLIENT -> Entered to much channels on this server at the same time (max is 128)");
+					case FULL:      trace("CLIENT -> Channel is full (max of 256 users already connected).");
+					case MALICIOUS: trace("CLIENT -> Malicious data.");
+					default: trace(reason);
 				}
 			}			
 		});		

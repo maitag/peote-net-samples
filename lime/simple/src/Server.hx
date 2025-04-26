@@ -46,17 +46,18 @@ class Server extends lime.app.Application
 				}, 1000);		
 			},
 			
-			onUserDisconnect: function(server:PeoteServer, userNr:Int, reason:Int) {
-				trace('SERVER -> onUserDisconnect: jointNr:${server.jointNr}, userNr:$userNr');
+			onUserDisconnect: function(server:PeoteServer, userNr:Int, reason:Reason) {
+				trace('SERVER -> onUserDisconnect: jointNr:${server.jointNr}, userNr:$userNr, reason:Sreason');
 			},
 			
-			onError: function(server:PeoteServer, userNr:Int, reason:Int) {
+			onError: function(server:PeoteServer, userNr:Int, reason:Reason) {
 				switch(reason) {
-					case Reason.DISCONNECT:trace("SERVER -> Can't connect to peote-server.");
-					case Reason.CLOSE:     trace("SERVER -> Connection to peote-server is closed.");
-					case Reason.ID:        trace("SERVER -> There is another channel with same ID. (or wrong ID)");
-					case Reason.MAX:       trace("SERVER -> Created to much channels on this server at the same time (max is 128).");
-					case Reason.MALICIOUS: trace('SERVER -> User $userNr sending malicious data.');
+					case DISCONNECT:trace("SERVER -> Can't connect to peote-server.");
+					case CLOSE:     trace("SERVER -> Connection to peote-server is closed.");
+					case ID:        trace("SERVER -> There is another channel with same ID. (or wrong ID)");
+					case MAX:       trace("SERVER -> Created to much channels on this server at the same time (max is 128).");
+					case MALICIOUS: trace('SERVER -> User $userNr sending malicious data.');
+					default: trace(reason);
 				}
 			}			
 		});

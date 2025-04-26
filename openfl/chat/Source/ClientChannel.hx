@@ -12,6 +12,8 @@ import openfl.display.Sprite;
 import ui.OutputText;
 
 import peote.net.PeoteClient;
+import peote.net.Reason;
+
 import peote.io.PeoteBytesOutput;
 import peote.io.PeoteBytesInput;
 
@@ -42,12 +44,12 @@ class ClientChannel extends Sprite implements I_Channel
 				send(username); // send username first
 			},
 			
-			onError: function(client:PeoteClient, errorNr:Int) {
-				outputAppend('can\'t enter channel "$channelName" - error-code:' + errorNr);
+			onError: function(client:PeoteClient, reason:Reason) {
+				outputAppend('can\'t enter channel "$channelName" - reason: $reason');
 				Timer.delay( function() { onCloseConnection(this); } , 1000);
 			},
 			
-			onDisconnect: function(client:PeoteClient, reason:Int) {
+			onDisconnect: function(client:PeoteClient, reason:Reason) {
 				outputAppend('disconnect channel (${client.jointNr}) "$channelName", reason: $reason');
 				onCloseConnection(this);
 			},

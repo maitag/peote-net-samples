@@ -8,6 +8,7 @@ import openfl.display.Sprite;
 
 import peote.net.PeoteServer;
 import peote.net.PeoteClient;
+import peote.net.Reason;
 import peote.net.Remote;
 
 import peote.io.Byte;
@@ -105,11 +106,11 @@ class MainOpenfl extends Sprite
 					default: trace("unknown remoteId");
 				}
 			},
-			onUserDisconnect: function(server:PeoteServer, userNr:Int, reason:Int)
+			onUserDisconnect: function(server:PeoteServer, userNr:Int, reason:Reason)
 			{
-				trace('onUserDisconnect: jointNr:${server.jointNr}, userNr:$userNr');
+				trace('onUserDisconnect: jointNr:${server.jointNr}, userNr:$userNr, reason:$reason');
 			},
-			onError: function(server:PeoteServer, userNr:Int, reason:Int)
+			onError: function(server:PeoteServer, userNr:Int, reason:Reason)
 			{
 				trace('onCreateJointError:$reason, userNr:$userNr');
 			}
@@ -180,11 +181,11 @@ class MainOpenfl extends Sprite
 				
 				serverFunctions.msgpack({name:"Bob", age:48, friends:["Mary","Johan"]});
 			},
-			onDisconnect: function(client:PeoteClient, reason:Int)
+			onDisconnect: function(client:PeoteClient, reason:Reason)
 			{
-				trace('onDisconnect: jointNr=${client.jointNr}');
+				trace('onDisconnect: jointNr=${client.jointNr}, reason:$reason');
 			},
-			onError: function(client:PeoteClient, reason:Int)
+			onError: function(client:PeoteClient, reason:Reason)
 			{
 				trace('onEnterJointError:$reason');
 			}

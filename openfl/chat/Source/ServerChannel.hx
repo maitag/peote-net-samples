@@ -13,6 +13,8 @@ import openfl.display.Sprite;
 import ui.OutputText;
 
 import peote.net.PeoteServer;
+import peote.net.Reason;
+
 import peote.io.PeoteBytesOutput;
 import peote.io.PeoteBytesInput;
 
@@ -46,8 +48,8 @@ class ServerChannel extends Sprite implements I_Channel
 				outputAppend('create new channel (${server.jointNr}): "$channelName"');
 			},
 			
-			onError: function( server:PeoteServer, userNr:Int, errorNr:Int ) {
-				outputAppend('can\'t create channel "$channelName" - error-code:' + errorNr);
+			onError: function( server:PeoteServer, userNr:Int, reason:Reason ) {
+				outputAppend('can\'t create channel "$channelName" - reason: $reason');
 				Timer.delay( function() { onCloseConnection(this); } , 1000);
 			},
 			
@@ -55,7 +57,7 @@ class ServerChannel extends Sprite implements I_Channel
 				user.set(userNr,"");
 			},
 			
-			onUserDisconnect: function( server:PeoteServer, userNr:Int, reason:Int ) {
+			onUserDisconnect: function( server:PeoteServer, userNr:Int, reason:Reason ) {
 				outputAppend( '${user.get(userNr)} leaves channel, reason: $reason' );
 				user.remove(userNr);
 			},

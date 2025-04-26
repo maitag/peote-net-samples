@@ -38,14 +38,15 @@ class PeoteTest extends Sprite {
 			onCreate: function(server:PeoteServer) {
 				logServer.log('onCreateJoint: Channel ${server.jointNr} created.\n');
 			},
-			onError: function(server:PeoteServer, userNr:Int, reason:Int) {
+			onError: function(server:PeoteServer, userNr:Int, reason:Reason) {
 				logServer.log('onError: jointNr:${server.jointNr}, userNr:$userNr.\n');
 				switch(reason) {
-					case Reason.DISCONNECT:logServer.log("Can't connect to peote-server.");
-					case Reason.CLOSE:     logServer.log("Connection to peote-server is closed.");
-					case Reason.ID:        logServer.log("There is another channel with same ID. (or wrong ID)");
-					case Reason.MAX:       logServer.log("Created to much channels on this server (max is 128).");
-					case Reason.MALICIOUS: if (userNr > 0) logServer.log('User $userNr sending malicious data.'); // TODO: kick/bann user
+					case DISCONNECT:logServer.log("Can't connect to peote-server.");
+					case CLOSE:     logServer.log("Connection to peote-server is closed.");
+					case ID:        logServer.log("There is another channel with same ID. (or wrong ID)");
+					case MAX:       logServer.log("Created to much channels on this server (max is 128).");
+					case MALICIOUS: if (userNr > 0) logServer.log('User $userNr sending malicious data.'); // TODO: kick/bann user
+					default: logServer.log(reason);
 				}
 			},
 			onUserConnect: function(server:PeoteServer, userNr:Int) {
@@ -53,11 +54,12 @@ class PeoteTest extends Sprite {
 				server.sendChunk(userNr, prepareTestChunk('Hello Client $userNr'));
 				//server.sendChunk(userNr, prepareFibonacciChunk());
 			},
-			onUserDisconnect: function(server:PeoteServer, userNr:Int, reason:Int) {
+			onUserDisconnect: function(server:PeoteServer, userNr:Int, reason:Reason) {
 				logServer.log('onUserDisconnect: jointNr:${server.jointNr}, userNr:$userNr');
 				switch (reason) {
-					case Reason.CLOSE:      logServer.log("User leaves channel.");
-					case Reason.DISCONNECT: logServer.log("User disconnected from peote-server.");
+					case CLOSE:      logServer.log("User leaves channel.");
+					case DISCONNECT: logServer.log("User disconnected from peote-server.");
+					default: logServer.log(reason);
 				}
 			},
 			onDataChunk: function(server:PeoteServer, userNr:Int, bytes:Bytes) {
@@ -78,22 +80,24 @@ class PeoteTest extends Sprite {
 				client.sendChunk( prepareTestChunk('Hello Server'));
 				//client.sendChunk( prepareFibonacciChunk());
 			},
-			onError: function(client:PeoteClient, reason:Int) {
+			onError: function(client:PeoteClient, reason:Reason) {
 				switch(reason) {
-					case Reason.DISCONNECT:logClient.log("Can't connect to peote-server.");
-					case Reason.CLOSE:     logClient.log("Connection to peote-server is closed.");
-					case Reason.ID:        logClient.log("No channel with this ID to enter.");
-					case Reason.MAX:       logClient.log("Entered to much channels on this server (max is 128)");
-					case Reason.FULL:      logClient.log("Channel is full (max of 256 users already connected).");
-					case Reason.MALICIOUS: logClient.log("Malicious data.");
+					case DISCONNECT:logClient.log("Can't connect to peote-server.");
+					case CLOSE:     logClient.log("Connection to peote-server is closed.");
+					case ID:        logClient.log("No channel with this ID to enter.");
+					case MAX:       logClient.log("Entered to much channels on this server (max is 128)");
+					case FULL:      logClient.log("Channel is full (max of 256 users already connected).");
+					case MALICIOUS: logClient.log("Malicious data.");
+					default: logClient.log(reason);
 				}
 			},
-			onDisconnect: function(client:PeoteClient, reason:Int) {
+			onDisconnect: function(client:PeoteClient, reason:Reason) {
 				logClient.log('onDisconnect from jointNr=${client.jointNr}');
 				switch (reason) {
-					case Reason.CLOSE:     logClient.log("Channel closed by creator.");
-					case Reason.DISCONNECT:logClient.log("Channel-creator disconnected.");
-					//case Reason.KICK: logClient.log("Kicked by channel-owner."); // TODO
+					case CLOSE:     logClient.log("Channel closed by creator.");
+					case DISCONNECT:logClient.log("Channel-creator disconnected.");
+					//case KICK: logClient.log("Kicked by channel-owner."); // TODO
+					default: logClient.log(reason);
 				}
 			},
 			onDataChunk: function(client:PeoteClient, bytes:Bytes) {
